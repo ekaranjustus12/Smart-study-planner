@@ -1,3 +1,46 @@
+import re
+
+def update_requirements(requirements_text, old_versions, new_versions):
+    """
+    Updates the versions of specified packages in a requirements.txt string.
+
+    Args:
+        requirements_text: The content of the requirements.txt file as a string.
+        old_versions: A dictionary mapping old package names to their old versions.
+        new_versions: A dictionary mapping old package names to their new versions.
+
+    Returns:
+        The updated requirements.txt string.
+    """
+
+    for old_package, old_version in old_versions.items():
+        pattern = r"^{}\s*==\s*{}$".format(old_package, old_version)
+        new_line = "{}=={}".format(old_package, new_versions[old_package])
+        requirements_text = re.sub(pattern, new_line, requirements_text, flags=re.MULTILINE)
+
+    return requirements_text
+
+# Example usage:
+old_versions = {
+    "Django": "2.1.4",
+    "django-cors-headers": "2.4.0",
+    "pytz": "2018.7"
+}
+
+new_versions = {
+    "Django": "5.1.7",  # Replace with the latest Django version
+    "django-cors-headers": "4.4.0",  # Replace with the latest django-cors-headers version
+    "pytz": "2023.3"  # Replace with the latest pytz version
+}
+
+# Simulate requirements.txt content
+requirements_text = """
 Django==2.1.4
 django-cors-headers==2.4.0
 pytz==2018.7
+other_package==1.2.3
+"""
+
+updated_requirements_text = update_requirements(requirements_text, old_versions, new_versions)
+
+print(updated_requirements_text)

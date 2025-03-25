@@ -1,58 +1,123 @@
 {% extends 'studyplanner/base.html' %}
-
 {% block title %}StudyPlanner{% endblock %}
-
 {% block content %}
-
-<div class="container-fluid">
-	<div class="pageBody">
-		<div class="row">
-			<div class="col-sm-offset-2 col-md-offset-2 col-sm-8 col-md-8">
-				<div class="text-center" style="padding-top:35pt; padding-bottom: 35pt;">
-					<b class="extraBig">Welcome to Study Planner!</b>
-					<hr>
-				</div>
-			</div>
-		</div>
-		{% include 'studyplanner/messages.html' %}
-		<div class="panels">
-			{% if plans.count > 0 %}
-				<div class="row">
-					<div class="table-responsive dataTable">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Plan no.</th>
-									<th>Name</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for plan in plans %}
-									<tr>
-										<td>{{ forloop.counter }}</td>
-										<td>{{ plan.name }}</td>
-										<td>
-											<a href="{% url 'studyplanner:plan-detail' pk=plan.pk %}">
-												<button class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span>&nbsp; Edit</button>
-											</a>
-											<a href="{% url 'studyplanner:print-plan' pk=plan.pk %}">
-												<button class="btn btn-info"></span>&nbsp;<span class="glyphicon glyphicon-print"></span>&nbsp; View/Print</button>
-											</a>											
-										</td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			{% else %}
-				<div class="text-center">
-					<h3>No study plans yet. <a href="{% url 'studyplanner:create-plan' %}">Create</a> a study plan now</h3>
-				</div>
-			{% endif %}
-		</div>
-	</div>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <!-- Header Section -->
+      <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold text-primary">Welcome to Smart Study Planner!</h1>
+        <div class="divider my-4"></div>
+      </div>
+      
+      <!-- Messages Section -->
+      {% include 'studyplanner/messages.html' %}
+      
+      <!-- Plans Section -->
+      <div class="card shadow-sm border-0 rounded-lg">
+        <div class="card-body p-4">
+          {% if plans.count > 0 %}
+            <div class="table-responsive">
+              <table class="table table-hover align-middle">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Name</th>
+                    <th scope="col" class="text-end">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for plan in plans %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="fw-medium">{{ plan.name }}</td>
+                    <td class="text-end">
+                      <div class="btn-group" role="group">
+                        <a href="{% url 'studyplanner:plan-detail' pk=plan.pk %}" class="btn btn-outline-primary btn-sm">
+                          <i class="bi bi-pencil-square"></i> Edit
+                        </a>
+                        <a href="{% url 'studyplanner:print-plan' pk=plan.pk %}" class="btn btn-outline-secondary btn-sm">
+                          <i class="bi bi-printer"></i> View/Print
+                        </a>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="text-center py-5">
+              <i class="bi bi-journal-plus display-1 text-muted"></i>
+              <h3 class="mt-4">No study plans yet</h3>
+              <p class="text-muted">Get started by creating your first study plan</p>
+              <a href="{% url 'studyplanner:create-plan' %}" class="btn btn-primary mt-3">
+                <i class="bi bi-plus-circle"></i> Create New Plan
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<!-- Add this to your base.html or include in this template -->
+<style>
+  :root {
+    --primary-color: #4361ee;
+    --secondary-color: #3f37c9;
+    --accent-color: #4895ef;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+  }
+  
+  body {
+    background-color: #f5f7fa;
+    color: var(--dark-color);
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+  }
+  
+  .divider {
+    height: 4px;
+    width: 70px;
+    background-color: var(--accent-color);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+  
+  .btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  
+  .btn-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+  }
+  
+  .text-primary {
+    color: var(--primary-color) !important;
+  }
+  
+  .table th {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.825rem;
+    letter-spacing: 0.5px;
+  }
+  
+  .table td {
+    padding: 0.75rem 1rem;
+  }
+</style>
 {% endblock %}

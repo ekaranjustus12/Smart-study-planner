@@ -1,51 +1,187 @@
+
 {% extends 'studyplanner/base.html' %}
-
 {% block title %}StudyPlanner{% endblock %}
-
 {% block content %}
-
 <div class="container-fluid">
-	<div class="pageBody">
-		<div class="row">
-			<div class="col-sm-offset-2 col-md-offset-2 col-sm-8 col-md-8">
-				<div class="text-center" style="padding-top:35pt; padding-bottom: 35pt;">
-					<b class="extraBig">My Plans</b>
-					<hr>
-				</div>
-			</div>
-		</div>
-		<div class="panels">
-			{% if plans.count > 0 %}
-				{% include 'studyplanner/messages.html' %}
-				<div class="row">
-					<div class="table-responsive dataTable">
-						<table class="table table-hover">
-							<thead>
-								<tr>
-									<th>Plan no.</th>
-									<th>Name</th>
-									<th>Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for plan in plans %}
-									<tr>
-										<td>{{ forloop.counter }}</td>
-										<td>{{ plan.name }}</td>
-										<td><a href="{% url 'studyplanner:plan-detail' pk=plan.pk %}"><span class="glyphicon glyphicon-eye-open"></span>&nbsp; View</a></td>
-									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
-					</div>
-				</div>
-			{% else %}
-				<div class="text-center">
-					<h3>No study plans yet. <a href="{% url 'studyplanner:create-plan' %}">Create</a> a study plan now</h3>
-				</div>
-			{% endif %}
-		</div>
-	</div>
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1">
+      <!-- Header Section -->
+      <div class="page-header text-center">
+        <h1 class="title-text">My Plans</h1>
+        <div class="custom-divider"></div>
+      </div>
+      
+      <!-- Plans Section -->
+      <div class="panel panel-default content-panel">
+        <div class="panel-body">
+          {% if plans.count > 0 %}
+            <!-- Messages Section -->
+            {% include 'studyplanner/messages.html' %}
+            
+            <div class="table-responsive">
+              <table class="table table-hover custom-table">
+                <thead>
+                  <tr>
+                    <th>Plan no.</th>
+                    <th>Name</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for plan in plans %}
+                  <tr class="plan-row">
+                    <td>{{ forloop.counter }}</td>
+                    <td class="plan-name">{{ plan.name }}</td>
+                    <td class="text-right">
+                      <a href="{% url 'studyplanner:plan-detail' pk=plan.pk %}" class="btn btn-primary btn-sm">
+                        <span class="glyphicon glyphicon-eye-open"></span> View
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          {% else %}
+            <div class="empty-state">
+              <div class="empty-state-icon">
+                <span class="glyphicon glyphicon-book"></span>
+              </div>
+              <h3>No study plans yet</h3>
+              <p class="text-muted">Start organizing your studies by creating a plan</p>
+              <a href="{% url 'studyplanner:create-plan' %}" class="btn btn-primary btn-lg">
+                <span class="glyphicon glyphicon-plus-sign"></span> Create a study plan
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
+<style>
+  /* Custom styles for StudyPlanner */
+  body {
+    background-color: #f5f7fa;
+    font-family: 'PT Sans', sans-serif;
+  }
+  
+  .title-text {
+    font-family: 'Merienda One', cursive;
+    color: #3498db;
+    margin-bottom: 20px;
+    font-size: 36px;
+  }
+  
+  .custom-divider {
+    height: 3px;
+    width: 80px;
+    background-color: #3498db;
+    margin: 0 auto 30px;
+  }
+  
+  .content-panel {
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    margin-bottom: 40px;
+  }
+  
+  .panel-body {
+    padding: 25px;
+  }
+  
+  .custom-table {
+    margin-bottom: 0;
+  }
+  
+  .custom-table thead tr th {
+    background-color: #f9f9f9;
+    border-bottom: 2px solid #e0e0e0;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.5px;
+    padding: 12px 15px;
+  }
+  
+  .custom-table tbody tr td {
+    padding: 15px;
+    vertical-align: middle;
+    border-top: 1px solid #f0f0f0;
+  }
+  
+  .plan-row {
+    transition: background-color 0.2s ease;
+  }
+  
+  .plan-row:hover {
+    background-color: #f0f7ff;
+  }
+  
+  .plan-name {
+    font-family: 'Sanchez', serif;
+    font-weight: 500;
+  }
+  
+  .btn-primary {
+    background-color: #3498db;
+    border-color: #2980b9;
+    transition: all 0.2s ease;
+  }
+  
+  .btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 40px 20px;
+  }
+  
+  .empty-state-icon {
+    font-size: 60px;
+    color: #d0d0d0;
+    margin-bottom: 20px;
+  }
+  
+  .empty-state h3 {
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 15px;
+    color: #555;
+  }
+  
+  .empty-state .btn {
+    margin-top: 20px;
+  }
+  
+  .page-header {
+    border-bottom: none;
+    margin: 40px 0 30px;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .title-text {
+      font-size: 28px;
+    }
+    
+    .panel-body {
+      padding: 15px;
+    }
+    
+    .custom-table thead tr th {
+      font-size: 11px;
+    }
+    
+    .custom-table tbody tr td {
+      padding: 10px;
+    }
+  }
+</style>
 {% endblock %}

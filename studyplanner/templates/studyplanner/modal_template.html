@@ -1,7 +1,32 @@
-<div class="col-sm-offset-2 col-md-offset-2 col-sm-8 col-md-8 CreateModal">
-	<h3 id="modalHeader"></h3> <h3 id="closeBtn">X</h3><hr>
-	<div class="panel-body">
-		<span id="formModal">{% include 'studyplanner/form_modal.html' %}</span>
-		<span id="actionModal">{% include 'studyplanner/action_modal.html' %}</span>
+<div class="container mx-auto px-4">
+	<div class="max-w-lg mx-auto bg-white rounded-lg shadow-lg">
+	  <div class="relative p-6">
+		{# Close Button #}
+		<button 
+		  id="closeBtn" 
+		  class="absolute top-4 right-4 text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-full p-2"
+		  aria-label="Close Modal"
+		>
+		  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+		  </svg>
+		</button>
+  
+		{# Modal Header #}
+		<h3 
+		  id="modalHeader" 
+		  class="text-xl font-semibold text-gray-800 mb-4 border-b pb-3"
+		></h3>
+  
+		{# Modal Content #}
+		<div class="panel-body space-y-4">
+		  <div id="formModal" class="w-full">
+			{% include 'studyplanner/form_modal.html' %}
+		  </div>
+		  <div id="actionModal" class="w-full">
+			{% include 'studyplanner/action_modal.html' %}
+		  </div>
+		</div>
+	  </div>
 	</div>
-</div>
+  </div>

@@ -1,23 +1,114 @@
-.fullWidth {
+/* Modern form styling */
+:root {
+    --input-bg: #f8f9fa;
+    --input-border: #dee2e6;
+    --input-focus: #4361ee;
+    --input-radius: 8px;
+    --input-padding: 12px 16px;
+    --input-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    --input-font: 'Inter', 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  /* Base input styling */
+  .form-input {
+    font-family: var(--input-font);
+    background-color: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: var(--input-radius);
+    padding: var(--input-padding);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    margin-top: 0.75rem;
+    box-shadow: var(--input-shadow);
+  }
+  
+  .form-input:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
+    outline: none;
+    background-color: white;
+  }
+  
+  /* Width variants */
+  .fullWidth {
     width: 100%;
-    margin-top: 12px;
-    padding: 12px;
-    border-radius: 4px;
     resize: vertical;
-    font-size: 15px;
-}
-
-.quarterWidth {
+  }
+  
+  .quarterWidth {
     width: 25%;
-    margin-top: 12px;
-    padding: 12px;
-    border-radius: 4px;
     resize: vertical;
-    font-size: 15px;
-}
-
-@media screen and (max-width:750px) {
-    .quarterWidth {
-        width: 100%;
+  }
+  
+  .halfWidth {
+    width: 50%;
+    resize: vertical;
+  }
+  
+  .thirdWidth {
+    width: 33.33%;
+    resize: vertical;
+  }
+  
+  /* Flexible width system */
+  .w-10 { width: 10%; }
+  .w-20 { width: 20%; }
+  .w-30 { width: 30%; }
+  .w-40 { width: 40%; }
+  .w-50 { width: 50%; }
+  .w-60 { width: 60%; }
+  .w-70 { width: 70%; }
+  .w-80 { width: 80%; }
+  .w-90 { width: 90%; }
+  .w-100 { width: 100%; }
+  
+  /* Responsive breakpoints */
+  @media screen and (max-width: 992px) {
+    .quarterWidth,
+    .thirdWidth,
+    .halfWidth {
+      width: 50%;
     }
-}
+    
+    .w-10, .w-20, .w-30, .w-40 {
+      width: 50%;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .quarterWidth,
+    .thirdWidth,
+    .halfWidth,
+    .w-10, .w-20, .w-30, .w-40, .w-50, .w-60, .w-70, .w-80, .w-90 {
+      width: 100%;
+    }
+  }
+  
+  /* Additional helper classes */
+  .readonly {
+    background-color: #e9ecef;
+    pointer-events: none;
+  }
+  
+  .with-icon {
+    padding-left: 40px;
+    position: relative;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #495057;
+  }
+  
+  .form-text {
+    display: block;
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #6c757d;
+  }
